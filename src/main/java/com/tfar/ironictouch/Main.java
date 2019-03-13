@@ -17,8 +17,10 @@ public class Main
     public static Main instance;
     @SidedProxy(clientSide = ReferenceVariables.CLIENT_PROXY_CLASS, serverSide = ReferenceVariables.COMMON_PROXY_CLASS)
     public static CommonProxy proxy;
+    public static Conversion setup;
     @EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
+        setup.setup();
         proxy.preInit(event);
     }
     @EventHandler
