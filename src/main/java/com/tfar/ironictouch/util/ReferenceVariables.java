@@ -1,7 +1,8 @@
 package com.tfar.ironictouch.util;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ReferenceVariables {
@@ -10,5 +11,5 @@ public class ReferenceVariables {
     public static final String VERSION = "1.0";
     public static final String CLIENT_PROXY_CLASS = "com.tfar.ironictouch.proxy.ClientProxy";
     public static final String COMMON_PROXY_CLASS = "com.tfar.ironictouch.proxy.CommonProxy";
-    public static Map<ItemStack,String> gold;
+    public static Map<Item,String> conversionItems= new HashMap<>();
 }

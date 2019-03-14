@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = ReferenceVariables.MOD_ID, name = ReferenceVariables.NAME, version = ReferenceVariables.VERSION)
 public class Main
@@ -17,16 +18,15 @@ public class Main
     public static Main instance;
     @SidedProxy(clientSide = ReferenceVariables.CLIENT_PROXY_CLASS, serverSide = ReferenceVariables.COMMON_PROXY_CLASS)
     public static CommonProxy proxy;
-    public static Conversion setup;
+    public static Logger logger;
     @EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
-        setup.setup();
         proxy.preInit(event);
     }
     @EventHandler
-    public static void init(FMLInitializationEvent event) { {
+    public static void init(FMLInitializationEvent event) {
+        MaterialRegistry.setup();
         MinecraftForge.EVENT_BUS.register(new ModEventHandler());
-    }
 
     }
     @EventHandler

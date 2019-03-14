@@ -15,4 +15,6 @@ public class ModConfig {
     public static int MAX_TRANSFERS=5;
     @Config.Name("Time Limit in seconds")
     public static int TIME_LIMIT=100;
+    @Config.Name("Conversion Type")
+    public static String CONVERSION_TYPE ="diamond";
 }
