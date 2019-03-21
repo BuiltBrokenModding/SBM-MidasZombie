@@ -12,10 +12,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = ReferenceVariables.MOD_ID, name = ReferenceVariables.NAME, version = ReferenceVariables.VERSION)
-public class Main
+public class IronicZombie
 {
     @Mod.Instance
-    public static Main instance;
+    public static IronicZombie instance;
     @SidedProxy(clientSide = ReferenceVariables.CLIENT_PROXY_CLASS, serverSide = ReferenceVariables.COMMON_PROXY_CLASS)
     public static CommonProxy proxy;
     public static Logger logger;

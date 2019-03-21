@@ -9,8 +9,10 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static com.tfar.ironictouch.util.ModConfig.MAX_TRANSFERS;
-import static com.tfar.ironictouch.util.ModConfig.TIME_LIMIT;
+import static com.tfar.ironictouch.util.ModConfig.*;
+import static com.tfar.ironictouch.util.ReferenceVariables.uniqueTypes;
+import static com.tfar.ironictouch.util.ReferenceVariables.uniqueTypesList;
+import static java.lang.Math.floor;
 
 public class EntityIronicZombie extends EntityZombie {
 
@@ -19,7 +21,10 @@ public class EntityIronicZombie extends EntityZombie {
     }
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata){
+
+        String type = uniqueTypesList.get((int)floor(Math.random()*uniqueTypes));
         this.getEntityData().setInteger("transfers",MAX_TRANSFERS);
+        this.getEntityData().setString("type",type);
         this.addPotionEffect(new PotionEffect(MobEffects.GLOWING, TIME_LIMIT*20, 1));
         return livingdata;
     }

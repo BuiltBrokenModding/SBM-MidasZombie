@@ -29,7 +29,7 @@ public class ModEntities {
         spawnBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.COLD));
 
         EntityRegistry.registerModEntity(new ResourceLocation(ReferenceVariables.MOD_ID, "ironictouch_ironiczombie"), EntityIronicZombie.class, "ironictouch_ironiczombie", id,
-                Main.instance, 64, 3, true, 0x222222, 0x555555);
+                IronicZombie.instance, 64, 3, true, 0x222222, 0x555555);
         EntityRegistry.addSpawn(EntityIronicZombie.class, SPAWN_WEIGHT, 1, 4, EnumCreatureType.MONSTER,  spawnBiomes.toArray(new Biome[spawnBiomes.size()]));
 
     }

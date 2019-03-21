@@ -15,6 +15,20 @@ public class ModConfig {
     public static int MAX_TRANSFERS=5;
     @Config.Name("Time Limit in seconds")
     public static int TIME_LIMIT=100;
-    @Config.Name("Conversion Type")
-    public static String CONVERSION_TYPE ="diamond";
+
+    @Config.Name("Advanced Options")
+    public static AdvancedOption advOpt = new AdvancedOption();
+
+    public static class AdvancedOption {
+
+        @Config.Name("item1")
+        public String[] inputItems = {"minecraft:stone_sword","minecraft:iron_sword","minecraft:golden_sword"};
+        @Config.Name("item2")
+        public String[] outputItems = {"minecraft:iron_sword", "minecraft:golden_sword","minecraft:diamond_sword"};
+        @Config.Name("type")
+        public String[] type = {"iron","gold","diamond"};
+
+        //public ConversionConfig[] conversionConfigs = new ConversionConfig[]{new ConversionConfig("minecraft:iron_sword", "minecraft:golden_sword", "gold")};
+    }
+
 }
