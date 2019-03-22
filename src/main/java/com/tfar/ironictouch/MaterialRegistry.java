@@ -16,7 +16,7 @@ public class MaterialRegistry {
             Item item1 = ForgeRegistries.ITEMS.getValue(new ResourceLocation(advOpt.inputItems[i]));
             Item item2 = ForgeRegistries.ITEMS.getValue(new ResourceLocation(advOpt.outputItems[i]));
             String type = advOpt.type[i];
-            conversionItems.put(item1, new Pair<>(item2, type));
+            conversionItems.put(new Pair<>(item1,type),item2);
         }
         String[] numArray = advOpt.type;
         for (String s : numArray) {

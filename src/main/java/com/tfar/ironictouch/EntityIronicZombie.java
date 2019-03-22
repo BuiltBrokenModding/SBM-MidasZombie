@@ -26,6 +26,8 @@ public class EntityIronicZombie extends EntityZombie {
         this.getEntityData().setInteger("transfers",MAX_TRANSFERS);
         this.getEntityData().setString("type",type);
         this.addPotionEffect(new PotionEffect(MobEffects.GLOWING, TIME_LIMIT*20, 1));
+        this.setCustomNameTag(this.getEntityData().getString("type"));
+        this.setAlwaysRenderNameTag(true);
         return livingdata;
     }
    /* @Override

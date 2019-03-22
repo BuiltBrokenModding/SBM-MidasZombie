@@ -1,9 +1,11 @@
 package com.tfar.ironictouch;
 
 import com.tfar.ironictouch.util.ReferenceVariables;
+import javafx.util.Pair;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -13,10 +15,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import static com.tfar.ironictouch.util.ModConfig.CONVERSION_CHANCE;
 import static com.tfar.ironictouch.util.ReferenceVariables.conversionItems;
 
-@Mod.EventBusSubscriber(modid= ReferenceVariables.MOD_ID)
+@Mod.EventBusSubscriber(modid = ReferenceVariables.MOD_ID)
 public class ModEventHandler {
     public ModEventHandler() {
     }
+
     @SubscribeEvent
     public static void onMobAttack(LivingHurtEvent event) {
         //null check
@@ -81,31 +84,35 @@ public class ModEventHandler {
             }
         }
 
-        if (event.getSource().getTrueSource().getEntityData().getInteger("transfers")<=0)((EntityIronicZombie) event.getSource().getTrueSource()).clearActivePotions();
+        if (event.getSource().getTrueSource().getEntityData().getInteger("transfers") <= 0)
+            ((EntityIronicZombie) event.getSource().getTrueSource()).clearActivePotions();
     }
-    public static boolean randCheck(){
-        return Math.random()< CONVERSION_CHANCE;
+
+    public static boolean randCheck() {
+        return Math.random() < CONVERSION_CHANCE;
     }
 
     public static ItemStack getConversion(ItemStack stack, EntityIronicZombie zombie) {
-        if (!conversionItems.containsKey(stack.getItem())){
-            System.out.println("Item is not eligible for conversion!!");return stack;}
-        String type1 = zombie.getEntityData().getString("type");
-        String type2 = conversionItems.get(stack.getItem()).getValue();
-        if (!type1.equals(type2)){
-            System.out.println("Item is eligible for conversion but the zombie is of the wrong type!");return stack;}
+        String type = zombie.getEntityData().getString("type");
+        Pair<Item, String> pair = new Pair<>(stack.getItem(), type);
+        if (!conversionItems.containsKey(pair)) {
+            System.out.println("Item is not eligible for conversion of any kind!");
+            return stack;
+        }
         NBTTagCompound nbt = stack.getTagCompound();
-        ItemStack newstack = new ItemStack(conversionItems.get(stack.getItem()).getKey());
+        ItemStack newstack = new ItemStack(conversionItems.get(pair));
+        newstack.setCount(stack.getCount());
         newstack.setTagCompound(nbt);
-        newstack.setItemDamage(transformDamage(stack,newstack));
+        newstack.setItemDamage(transformDamage(stack, newstack));
         System.out.println("success!");
         return newstack;
     }
 
-    public static int transformDamage(ItemStack oldStack, ItemStack newStack){
+    public static int transformDamage(ItemStack oldStack, ItemStack newStack) {
         int damage1 = oldStack.getItemDamage();
         int maxdamage1 = oldStack.getMaxDamage();
         int maxdamage2 = newStack.getMaxDamage();
-        return damage1*maxdamage2/maxdamage1;
+        if (maxdamage1 != 0) return damage1 * maxdamage2 / maxdamage1;
+        return 0;
     }
 }
