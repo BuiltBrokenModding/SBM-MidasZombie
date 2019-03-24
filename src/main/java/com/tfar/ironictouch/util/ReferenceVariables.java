@@ -1,7 +1,7 @@
 package com.tfar.ironictouch.util;
 
-import javafx.util.Pair;
 import net.minecraft.item.Item;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;

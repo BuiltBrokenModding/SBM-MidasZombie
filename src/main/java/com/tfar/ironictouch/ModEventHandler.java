@@ -1,7 +1,6 @@
 package com.tfar.ironictouch;
 
 import com.tfar.ironictouch.util.ReferenceVariables;
-import javafx.util.Pair;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -11,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
 
@@ -64,7 +64,7 @@ public class ModEventHandler {
 
     public static ItemStack getConversion(ItemStack stack, EntityIronicZombie zombie) {
         String type = zombie.getEntityData().getString("type");
-        Pair<Item, String> pair = new Pair<>(stack.getItem(), type);
+        Pair<Item, String> pair = Pair.of(stack.getItem(), type);
         if (!conversionItems.containsKey(pair)) {
             System.out.println("Item is not eligible for conversion of any kind!");
             return stack;
