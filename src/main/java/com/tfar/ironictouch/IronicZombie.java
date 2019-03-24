@@ -27,7 +27,6 @@ public class IronicZombie
     public static void init(FMLInitializationEvent event) {
         MaterialRegistry.setup();
         MinecraftForge.EVENT_BUS.register(new ModEventHandler());
-
     }
     @EventHandler
     public static void postInit(FMLPostInitializationEvent event) {

@@ -12,6 +12,8 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.HashMap;
+
 import static com.tfar.ironictouch.util.ModConfig.CONVERSION_CHANCE;
 import static com.tfar.ironictouch.util.ReferenceVariables.conversionItems;
 
@@ -28,64 +30,32 @@ public class ModEventHandler {
         if (!(event.getSource().getTrueSource() instanceof EntityIronicZombie) || !(event.getEntityLiving() instanceof EntityPlayer)) {
             return;
         }
-        if (event.getSource().getTrueSource().getEntityData().getInteger("transfers") <= 0 || ((EntityIronicZombie) event.getSource().getTrueSource()).getActivePotionEffect(MobEffects.GLOWING) == null)
+        EntityIronicZombie zombie = (EntityIronicZombie) event.getSource().getTrueSource();
+
+        //are there transfers left or time remaining
+        if (zombie.getActivePotionEffect(MobEffects.GLOWING) == null)
             return;
         EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-        ItemStack head = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-        ItemStack legs = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS);
-        ItemStack feet = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
-        ItemStack itemStackMainhand = player.getHeldItemMainhand();
-        EntityIronicZombie zombie = (EntityIronicZombie) event.getSource().getTrueSource();
-        //check head
-        if (!head.isEmpty() && randCheck()) {
-            ItemStack stack1 = getConversion(head, zombie);
-            if (stack1 != head) {
-                player.setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
-                player.setItemStackToSlot(EntityEquipmentSlot.HEAD, getConversion(head, zombie));
-                event.getSource().getTrueSource().getEntityData().setInteger("transfers", event.getSource().getTrueSource().getEntityData().getInteger("transfers") - 1);
-            }
-        }
-        //check chest
-        if (!chest.isEmpty() && randCheck()) {
-            ItemStack stack1 = getConversion(chest, zombie);
-            if (stack1 != chest) {
-                player.setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
-                player.setItemStackToSlot(EntityEquipmentSlot.CHEST, getConversion(chest, zombie));
-                event.getSource().getTrueSource().getEntityData().setInteger("transfers", event.getSource().getTrueSource().getEntityData().getInteger("transfers") - 1);
-            }
-        }
-        //check legs
-        if (!legs.isEmpty() && randCheck()) {
-            ItemStack stack1 = getConversion(legs, zombie);
-            if (stack1 != legs) {
-                player.setItemStackToSlot(EntityEquipmentSlot.LEGS, ItemStack.EMPTY);
-                player.setItemStackToSlot(EntityEquipmentSlot.LEGS, getConversion(legs, zombie));
-                event.getSource().getTrueSource().getEntityData().setInteger("transfers", event.getSource().getTrueSource().getEntityData().getInteger("transfers") - 1);
-            }
+        HashMap<EntityEquipmentSlot, ItemStack> equipment = new HashMap<>();
+        equipment.put(EntityEquipmentSlot.HEAD, player.getItemStackFromSlot(EntityEquipmentSlot.HEAD));
+        equipment.put(EntityEquipmentSlot.CHEST, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST));
+        equipment.put(EntityEquipmentSlot.LEGS, player.getItemStackFromSlot(EntityEquipmentSlot.LEGS));
+        equipment.put(EntityEquipmentSlot.FEET, player.getItemStackFromSlot(EntityEquipmentSlot.FEET));
+        equipment.put(EntityEquipmentSlot.MAINHAND, player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND));
+
+        for (EntityEquipmentSlot slot : equipment.keySet()) {
+            if (!randCheck() || equipment.get(slot).isEmpty()) continue;
+            ItemStack oldStack = equipment.get(slot);
+            ItemStack newStack = getConversion(oldStack, zombie);
+            if (newStack == oldStack) continue;
+            player.setItemStackToSlot(slot, ItemStack.EMPTY);
+            player.setItemStackToSlot(slot, newStack);
+            int i = zombie.getEntityData().getInteger("transfers");
+            zombie.getEntityData().setInteger("transfers", i - 1);
         }
 
-        //check feet
-        if (!head.isEmpty() && randCheck()) {
-            ItemStack stack1 = getConversion(feet, zombie);
-            if (stack1 != feet) {
-                player.setItemStackToSlot(EntityEquipmentSlot.FEET, ItemStack.EMPTY);
-                player.setItemStackToSlot(EntityEquipmentSlot.FEET, getConversion(feet, zombie));
-                event.getSource().getTrueSource().getEntityData().setInteger("transfers", event.getSource().getTrueSource().getEntityData().getInteger("transfers") - 1);
-            }
-        }
-        //check held item
-        if (!itemStackMainhand.isEmpty() && randCheck()) {
-            ItemStack stack1 = getConversion(itemStackMainhand, zombie);
-            if (stack1 != itemStackMainhand) {
-                player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, getConversion(itemStackMainhand, zombie));
-                event.getSource().getTrueSource().getEntityData().setInteger("transfers", event.getSource().getTrueSource().getEntityData().getInteger("transfers") - 1);
-            }
-        }
-
-        if (event.getSource().getTrueSource().getEntityData().getInteger("transfers") <= 0)
-            ((EntityIronicZombie) event.getSource().getTrueSource()).clearActivePotions();
+        if (zombie.getEntityData().getInteger("transfers") <= 0)
+            zombie.clearActivePotions();
     }
 
     public static boolean randCheck() {
