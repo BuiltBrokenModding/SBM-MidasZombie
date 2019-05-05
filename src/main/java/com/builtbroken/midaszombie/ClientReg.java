@@ -1,5 +1,6 @@
 package com.builtbroken.midaszombie;
 
+import com.builtbroken.midaszombie.entity.EntityIronicZombie;
 import net.minecraft.client.renderer.entity.RenderZombie;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;

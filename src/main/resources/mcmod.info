@@ -1,14 +1,14 @@
 [
 {
-  "modid": "aerialaffinity",
-  "name": "Aerial Affinity",
-  "description": "A mod that adds an enchantment that removes the mining speed penalty while flying.",
+  "modid": "midaszombie",
+  "name": "[SBM] Midas Zombie",
+  "description": "Simple mod to spawn random zombies that can convert your armor into different types on attack.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["Tfarcemin"],
-  "credits": "To teeto for the idea",
+  "authorList": ["IItemstack", "DarkCow"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

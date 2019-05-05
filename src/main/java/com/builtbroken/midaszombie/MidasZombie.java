@@ -1,8 +1,10 @@
 package com.builtbroken.midaszombie;
 
+import com.builtbroken.midaszombie.entity.EntityIronicZombie;
+import com.builtbroken.midaszombie.entity.ModEventHandler;
+import com.builtbroken.midaszombie.materials.MaterialRegistry;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -15,16 +17,15 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
 
 import static com.builtbroken.midaszombie.ModConfig.SPAWN_WEIGHT;
 
 @Mod(modid = MidasZombie.MOD_ID, name = MidasZombie.NAME, version = MidasZombie.VERSION)
+@Mod.EventBusSubscriber
 public class MidasZombie
 {
     public static final String MOD_ID = "midaszombie";
@@ -53,7 +54,7 @@ public class MidasZombie
 
         //Setup
         EntityEntryBuilder builder = EntityEntryBuilder.create();
-        ResourceLocation name = new ResourceLocation(MidasZombie.MOD_ID, "ironictouch_ironiczombie");
+        ResourceLocation name = new ResourceLocation(MidasZombie.MOD_ID, "zombie");
         builder.name(name.toString());
         builder.id(name, 0);
         builder.tracker(64, 3, true);

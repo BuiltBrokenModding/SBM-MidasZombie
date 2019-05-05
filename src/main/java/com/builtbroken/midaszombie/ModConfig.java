@@ -24,14 +24,6 @@ public class ModConfig
     public static class AdvancedOption
     {
 
-        @Config.Name("input")
-        public String[] inputItems = {"minecraft:planks", "minecraft:cobblestone", "minecraft:iron_ingot", "minecraft:gold_ingot", "minecraft:diamond", "minecraft:gold_ingot"};
-        @Config.Name("output")
-        public String[] outputItems = {"minecraft:cobblestone", "minecraft:iron_ingot", "minecraft:gold_ingot", "minecraft:diamond", "minecraft:gold_ingot", "minecraft:iron_ingot"};
-        @Config.Name("type")
-        public String[] type = {"stone", "iron", "gold", "diamond", "gold", "iron"};
-
-        //public ConversionConfig[] conversionConfigs = new ConversionConfig[]{new ConversionConfig("minecraft:iron_sword", "minecraft:golden_sword", "gold")};
     }
 
 }
