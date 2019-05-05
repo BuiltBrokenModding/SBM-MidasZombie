@@ -3,8 +3,8 @@ package com.builtbroken.midaszombie.entity;
 import com.builtbroken.midaszombie.MidasZombie;
 import com.builtbroken.midaszombie.materials.MaterialRegistry;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
@@ -25,12 +25,11 @@ public class ModEventHandler
         if (event.getSource() != null)
         {
             final Entity source = event.getSource().getTrueSource();
-            final Entity target = event.getEntityLiving();
+            final EntityLivingBase target = event.getEntityLiving();
 
-            if (source instanceof EntityIronicZombie && target instanceof EntityPlayer)
+            if (source instanceof EntityIronicZombie && target != null)
             {
                 final EntityIronicZombie zombie = (EntityIronicZombie) source;
-                final EntityPlayer player = (EntityPlayer) target;
 
                 //Only run on active zombies
                 if (zombie.hasMidasTouch())
@@ -39,7 +38,7 @@ public class ModEventHandler
                     final ResourceLocation type = zombie.getMaterialType();
                     for (EntityEquipmentSlot slot : EntityEquipmentSlot.values())
                     {
-                        applyEffectToSlot(player, slot, type);
+                        applyEffectToSlot(target, slot, type);
                     }
 
                     //TODO consider random chance for inventory
@@ -88,7 +87,7 @@ public class ModEventHandler
         }
     }
 
-    public static void applyEffectToSlot(EntityPlayer player, EntityEquipmentSlot slot, ResourceLocation type)
+    public static void applyEffectToSlot(EntityLivingBase player, EntityEquipmentSlot slot, ResourceLocation type)
     {
         final ItemStack currentItemStack = player.getItemStackFromSlot(slot);
         if (!currentItemStack.isEmpty() && Math.random() < CONVERSION_CHANCE)

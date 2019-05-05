@@ -2,6 +2,7 @@ package com.builtbroken.midaszombie.materials;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -33,22 +34,25 @@ public class MidasMaterial
      */
     public void addSimpleConversion(final Item input, final Item output)
     {
-        conversions.put(input, (itemstack) -> {
-            ItemStack newStack = new ItemStack(output, itemstack.getCount(), 0);
+        if(input != null && output != null)
+        {
+            conversions.put(input, (itemstack) -> {
+                ItemStack newStack = new ItemStack(output, itemstack.getCount(), 0);
 
-            //Pull in damage of the item, for armor this will percent convert the damage
-            if (newStack.isItemStackDamageable())
-            {
-                newStack.setItemDamage(convertDamage(input.getMaxDamage(itemstack), output.getMaxDamage(newStack), itemstack.getItemDamage()));
-            }
+                //Pull in damage of the item, for armor this will percent convert the damage
+                if (newStack.isItemStackDamageable())
+                {
+                    newStack.setItemDamage(convertDamage(input.getMaxDamage(itemstack), output.getMaxDamage(newStack), itemstack.getItemDamage()));
+                }
 
-            //Pull in NBT
-            if (itemstack.getTagCompound() != null)
-            {
-                newStack.setTagCompound(itemstack.getTagCompound().copy());
-            }
-            return newStack;
-        });
+                //Pull in NBT
+                if (itemstack.getTagCompound() != null)
+                {
+                    newStack.setTagCompound(itemstack.getTagCompound().copy());
+                }
+                return newStack;
+            });
+        }
     }
 
     /**
@@ -98,4 +102,13 @@ public class MidasMaterial
         return defaultTools.get(toolClass);
     }
 
+    public void setDefault(EntityEquipmentSlot head, ItemArmor leatherHelmet)
+    {
+        defaultArmor.put(head, leatherHelmet);
+    }
+
+    public void setDefault(String toolClass, Item item)
+    {
+        defaultTools.put(toolClass, item);
+    }
 }

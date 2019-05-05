@@ -46,8 +46,11 @@ public class EntityIronicZombie extends EntityZombie
         this.addPotionEffect(new PotionEffect(MobEffects.GLOWING, TIME_LIMIT * 20, 1));
 
         //Setup name
-        //this.setCustomNameTag(getMaterialType().toString());
-        //this.setAlwaysRenderNameTag(true);
+        if(getMaterialType() != null)
+        {
+            this.setCustomNameTag(getMaterialType().toString());
+            this.setAlwaysRenderNameTag(true);
+        }
 
         return livingdata;
     }
@@ -95,7 +98,7 @@ public class EntityIronicZombie extends EntityZombie
 
     public NBTTagCompound getMidasSaveData()
     {
-        if (getEntityData().hasKey(NBT_DATA))
+        if (!getEntityData().hasKey(NBT_DATA))
         {
             getEntityData().setTag(NBT_DATA, new NBTTagCompound());
         }

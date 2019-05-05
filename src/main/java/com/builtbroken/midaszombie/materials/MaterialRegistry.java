@@ -1,10 +1,8 @@
 package com.builtbroken.midaszombie.materials;
 
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
@@ -30,14 +28,16 @@ public class MaterialRegistry
     private static final HashMap<EntityEquipmentSlot, Set<Item>> armorTypes = new HashMap();
     private static final HashMap<String, Set<Item>> toolTypes = new HashMap();
 
+    public static final String TOOL_SWORD = "sword";
+
     public static void setup()
     {
         //init types
-        getOrCreateMaterial(LEATHER_TYPE);
-        getOrCreateMaterial(IRON_TYPE);
-        getOrCreateMaterial(CHAIN_TYPE);
-        getOrCreateMaterial(GOLD_TYPE);
-        getOrCreateMaterial(DIAMOND_TYPE);
+        final MidasMaterial leather = getOrCreateMaterial(LEATHER_TYPE);
+        final MidasMaterial iron = getOrCreateMaterial(IRON_TYPE);
+        final MidasMaterial chain = getOrCreateMaterial(CHAIN_TYPE);
+        final MidasMaterial gold = getOrCreateMaterial(GOLD_TYPE);
+        final MidasMaterial diamond = getOrCreateMaterial(DIAMOND_TYPE);
 
         //init armor
         armorMatToTypeMat.put(ItemArmor.ArmorMaterial.LEATHER, LEATHER_TYPE);
@@ -45,6 +45,20 @@ public class MaterialRegistry
         armorMatToTypeMat.put(ItemArmor.ArmorMaterial.CHAIN, CHAIN_TYPE);
         armorMatToTypeMat.put(ItemArmor.ArmorMaterial.GOLD, GOLD_TYPE);
         armorMatToTypeMat.put(ItemArmor.ArmorMaterial.DIAMOND, DIAMOND_TYPE);
+
+        //Setup defaults
+        leather.setDefault(EntityEquipmentSlot.HEAD, Items.LEATHER_HELMET);
+
+        iron.setDefault(EntityEquipmentSlot.HEAD, Items.IRON_HELMET);
+        iron.setDefault(TOOL_SWORD, Items.IRON_SWORD);
+
+        chain.setDefault(EntityEquipmentSlot.HEAD, Items.CHAINMAIL_HELMET);
+
+        gold.setDefault(EntityEquipmentSlot.HEAD, Items.GOLDEN_HELMET);
+        gold.setDefault(TOOL_SWORD, Items.GOLDEN_SWORD);
+
+        diamond.setDefault(EntityEquipmentSlot.HEAD, Items.DIAMOND_HELMET);
+        diamond.setDefault(TOOL_SWORD, Items.DIAMOND_SWORD);
 
         //Collect items to sets of items
         for (Item item : ForgeRegistries.ITEMS.getValuesCollection())
@@ -56,6 +70,10 @@ public class MaterialRegistry
             else if (item instanceof ItemTool)
             {
                 item.getToolClasses(new ItemStack(item)).forEach(toolClass -> addSimpleTool(toolClass, item));
+            }
+            else if(item instanceof ItemSword)
+            {
+                addSimpleTool(TOOL_SWORD, item);
             }
         }
 
@@ -87,9 +105,21 @@ public class MaterialRegistry
         }
 
         //Mapping tool types to conversion
-        for()
+        for (Map.Entry<String, Set<Item>> toolSet : toolTypes.entrySet())
         {
+            final String toolClass = toolSet.getKey();
 
+            for (Item item : toolSet.getValue())
+            {
+                for (MidasMaterial midasMaterial : materialNameToType.values())
+                {
+                    final Item defaultItem = midasMaterial.getDefault(toolClass);
+                    if (defaultItem != item)
+                    {
+                        midasMaterial.addSimpleConversion(item, defaultItem);
+                    }
+                }
+            }
         }
     }
 
