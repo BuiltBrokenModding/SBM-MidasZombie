@@ -28,7 +28,15 @@ public class MaterialRegistry
     private static final HashMap<EntityEquipmentSlot, Set<Item>> armorTypes = new HashMap();
     private static final HashMap<String, Set<Item>> toolTypes = new HashMap();
 
+    //Custom tool classes for internal tracking
     public static final String TOOL_SWORD = "sword";
+    public static final String TOOL_HOE = "hoe";
+    public static final String ITEM_INGOT = "ingot";
+
+    //MC tool classes
+    public static final String TOOL_SHOVEL = "shovel";
+    public static final String TOOL_AXE = "axe";
+    public static final String TOOL_PICKAXE = "pickaxe";
 
     public static void setup()
     {
@@ -46,19 +54,57 @@ public class MaterialRegistry
         armorMatToTypeMat.put(ItemArmor.ArmorMaterial.GOLD, GOLD_TYPE);
         armorMatToTypeMat.put(ItemArmor.ArmorMaterial.DIAMOND, DIAMOND_TYPE);
 
-        //Setup defaults
+        //Leather
         leather.setDefault(EntityEquipmentSlot.HEAD, Items.LEATHER_HELMET);
+        leather.setDefault(EntityEquipmentSlot.CHEST, Items.LEATHER_CHESTPLATE);
+        leather.setDefault(EntityEquipmentSlot.LEGS, Items.LEATHER_LEGGINGS);
+        leather.setDefault(EntityEquipmentSlot.FEET, Items.LEATHER_BOOTS);
 
+        //Iron
         iron.setDefault(EntityEquipmentSlot.HEAD, Items.IRON_HELMET);
+        iron.setDefault(EntityEquipmentSlot.CHEST, Items.IRON_CHESTPLATE);
+        iron.setDefault(EntityEquipmentSlot.LEGS, Items.IRON_LEGGINGS);
+        iron.setDefault(EntityEquipmentSlot.FEET, Items.IRON_BOOTS);
+        
         iron.setDefault(TOOL_SWORD, Items.IRON_SWORD);
+        iron.setDefault(TOOL_SHOVEL, Items.IRON_SHOVEL);
+        iron.setDefault(TOOL_AXE, Items.IRON_AXE);
+        iron.setDefault(TOOL_PICKAXE, Items.IRON_PICKAXE);
+        iron.setDefault(TOOL_HOE, Items.IRON_HOE);
 
+        iron.setDefault(ITEM_INGOT, Items.IRON_INGOT);
+
+        //Chain
         chain.setDefault(EntityEquipmentSlot.HEAD, Items.CHAINMAIL_HELMET);
+        chain.setDefault(EntityEquipmentSlot.CHEST, Items.CHAINMAIL_CHESTPLATE);
+        chain.setDefault(EntityEquipmentSlot.LEGS, Items.CHAINMAIL_LEGGINGS);
+        chain.setDefault(EntityEquipmentSlot.FEET, Items.CHAINMAIL_BOOTS);
 
+        //Gold
         gold.setDefault(EntityEquipmentSlot.HEAD, Items.GOLDEN_HELMET);
-        gold.setDefault(TOOL_SWORD, Items.GOLDEN_SWORD);
+        gold.setDefault(EntityEquipmentSlot.CHEST, Items.GOLDEN_CHESTPLATE);
+        gold.setDefault(EntityEquipmentSlot.LEGS, Items.GOLDEN_LEGGINGS);
+        gold.setDefault(EntityEquipmentSlot.FEET, Items.GOLDEN_BOOTS);
 
+        gold.setDefault(TOOL_SWORD, Items.GOLDEN_SWORD);
+        gold.setDefault(TOOL_SHOVEL, Items.GOLDEN_SHOVEL);
+        gold.setDefault(TOOL_AXE, Items.GOLDEN_AXE);
+        gold.setDefault(TOOL_PICKAXE, Items.GOLDEN_PICKAXE);
+        gold.setDefault(TOOL_HOE, Items.GOLDEN_HOE);
+
+        gold.setDefault(ITEM_INGOT, Items.GOLD_INGOT);
+
+        //Diamond
         diamond.setDefault(EntityEquipmentSlot.HEAD, Items.DIAMOND_HELMET);
+        diamond.setDefault(EntityEquipmentSlot.CHEST, Items.DIAMOND_CHESTPLATE);
+        diamond.setDefault(EntityEquipmentSlot.LEGS, Items.DIAMOND_LEGGINGS);
+        diamond.setDefault(EntityEquipmentSlot.FEET, Items.DIAMOND_BOOTS);
+
         diamond.setDefault(TOOL_SWORD, Items.DIAMOND_SWORD);
+        diamond.setDefault(TOOL_SHOVEL, Items.DIAMOND_SHOVEL);
+        diamond.setDefault(TOOL_AXE, Items.DIAMOND_AXE);
+        diamond.setDefault(TOOL_PICKAXE, Items.DIAMOND_PICKAXE);
+        diamond.setDefault(TOOL_HOE, Items.DIAMOND_HOE);
 
         //Collect items to sets of items
         for (Item item : ForgeRegistries.ITEMS.getValuesCollection())
@@ -74,6 +120,10 @@ public class MaterialRegistry
             else if(item instanceof ItemSword)
             {
                 addSimpleTool(TOOL_SWORD, item);
+            }
+            else if(item instanceof ItemHoe)
+            {
+                addSimpleTool(TOOL_HOE, item);
             }
         }
 
