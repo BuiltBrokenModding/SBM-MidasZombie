@@ -2,10 +2,13 @@ package com.builtbroken.midaszombie.entity;
 
 import com.builtbroken.midaszombie.MidasZombie;
 import com.builtbroken.midaszombie.materials.MaterialRegistry;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
@@ -29,10 +32,9 @@ public class EntityIronicZombie extends EntityZombie
     }
 
     @Override
-    protected void applyEntityAI()
+    public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack)
     {
-        super.applyEntityAI();
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityZombie.class, true));
+        //We don't want armor set on this zombie type
     }
 
     @Override
@@ -53,6 +55,18 @@ public class EntityIronicZombie extends EntityZombie
         }
 
         return livingdata;
+    }
+
+    @Override
+    public String getCustomNameTag()
+    {
+        String name = super.getCustomNameTag();
+        String translateKey = "zombie.midas." + name + ".tag.name";
+        if(I18n.hasKey(translateKey))
+        {
+            return I18n.format(translateKey);
+        }
+        return name;
     }
 
     public boolean hasMidasTouch()

@@ -1,1 +1,6 @@
-entity.ironictouch_ironiczombie.name=Ironic Zombie
+entity.midas:zombie.name=Midas Zombie
+
+zombie.midas.minecraft:iron.tag.name=Ferrous Zombie
+zombie.midas.minecraft:gold.tag.name=Midas Zombie
+zombie.midas.minecraft:diamond.tag.name=Crystal Zombie
+zombie.midas.minecraft:leather.tag.name=Hide Zombie
