@@ -4,3 +4,9 @@ zombie.midas.minecraft:iron.tag.name=Ferrous Zombie
 zombie.midas.minecraft:gold.tag.name=Midas Zombie
 zombie.midas.minecraft:diamond.tag.name=Crystal Zombie
 zombie.midas.minecraft:leather.tag.name=Hide Zombie
+
+config.midas:title=Midas Zombie Config
+config.midas:conversion.chance=Conversion Chance
+config.midas:spawn.weight=Spawn Weight
+config.midas:conversion.limit=Conversion Limit
+config.midas:conversion.timer=Conversion Timer

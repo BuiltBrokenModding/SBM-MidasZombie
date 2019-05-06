@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.builtbroken.midaszombie.ModConfig.SPAWN_WEIGHT;
+import static com.builtbroken.midaszombie.ConfigMain.SPAWN_WEIGHT;
 
 @Mod(modid = MidasZombie.MOD_ID, name = MidasZombie.NAME, version = MidasZombie.VERSION)
 @Mod.EventBusSubscriber

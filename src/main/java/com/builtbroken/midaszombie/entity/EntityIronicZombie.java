@@ -4,7 +4,6 @@ import com.builtbroken.midaszombie.MidasZombie;
 import com.builtbroken.midaszombie.materials.MaterialRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -17,8 +16,8 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static com.builtbroken.midaszombie.ModConfig.MAX_TRANSFERS;
-import static com.builtbroken.midaszombie.ModConfig.TIME_LIMIT;
+import static com.builtbroken.midaszombie.ConfigMain.MAX_TRANSFERS;
+import static com.builtbroken.midaszombie.ConfigMain.TIME_LIMIT;
 
 public class EntityIronicZombie extends EntityZombie
 {

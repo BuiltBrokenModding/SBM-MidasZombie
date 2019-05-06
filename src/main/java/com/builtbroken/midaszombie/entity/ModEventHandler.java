@@ -1,5 +1,6 @@
 package com.builtbroken.midaszombie.entity;
 
+import com.builtbroken.midaszombie.ConfigMain;
 import com.builtbroken.midaszombie.MidasZombie;
 import com.builtbroken.midaszombie.materials.MaterialRegistry;
 import net.minecraft.entity.Entity;
@@ -13,8 +14,6 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import static com.builtbroken.midaszombie.ModConfig.CONVERSION_CHANCE;
 
 @Mod.EventBusSubscriber(modid = MidasZombie.MOD_ID)
 public class ModEventHandler
@@ -54,25 +53,6 @@ public class ModEventHandler
     }
 
     //@SubscribeEvent
-    public static void onMobJoinWorld(EntityJoinWorldEvent event)
-    {
-        if (event.getEntity() instanceof EntityZombie)
-        {
-            for (EntityEquipmentSlot entityequipmentslot : EntityEquipmentSlot.values())
-            {
-                if (entityequipmentslot.getSlotType() == EntityEquipmentSlot.Type.ARMOR)
-                {
-                    Item item = EntityZombie.getArmorByChance(entityequipmentslot, 3);
-                    if (item != null)
-                    {
-                        event.getEntity().setItemStackToSlot(entityequipmentslot, new ItemStack(item));
-                    }
-                }
-            }
-        }
-    }
-
-    //@SubscribeEvent
     public static void onMobInteraction(PlayerInteractEvent.EntityInteract event)
     {
         if (event.getTarget() instanceof EntityZombie && event.getEntityPlayer().isCreative())
@@ -93,7 +73,7 @@ public class ModEventHandler
     public static void applyEffectToSlot(EntityLivingBase player, EntityEquipmentSlot slot, ResourceLocation type)
     {
         final ItemStack currentItemStack = player.getItemStackFromSlot(slot);
-        if (!currentItemStack.isEmpty() && Math.random() < CONVERSION_CHANCE)
+        if (!currentItemStack.isEmpty() && Math.random() < ConfigMain.CONVERSION_CHANCE)
         {
             //Get conversion
             final ItemStack newStack = MaterialRegistry.getConversion(currentItemStack, type);
