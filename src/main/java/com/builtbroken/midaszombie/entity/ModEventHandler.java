@@ -44,13 +44,16 @@ public class ModEventHandler
                     //TODO consider random chance for inventory
                 }
 
+                //TODO play sound effects
+                //TODO spawn particle effects
+
                 //Consume magic points
                 zombie.consumeTransfer(1);
             }
         }
     }
 
-    @SubscribeEvent
+    //@SubscribeEvent
     public static void onMobJoinWorld(EntityJoinWorldEvent event)
     {
         if (event.getEntity() instanceof EntityZombie)
@@ -69,7 +72,7 @@ public class ModEventHandler
         }
     }
 
-    @SubscribeEvent
+    //@SubscribeEvent
     public static void onMobInteraction(PlayerInteractEvent.EntityInteract event)
     {
         if (event.getTarget() instanceof EntityZombie && event.getEntityPlayer().isCreative())
