@@ -1,10 +1,12 @@
 package com.builtbroken.midaszombie;
 
+import com.builtbroken.midaszombie.entity.DataSerializerResourceLocation;
 import com.builtbroken.midaszombie.entity.EntityIronicZombie;
 import com.builtbroken.midaszombie.entity.ModEventHandler;
 import com.builtbroken.midaszombie.materials.MaterialRegistry;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -35,6 +37,7 @@ public class MidasZombie
     @EventHandler
     public static void init(FMLInitializationEvent event)
     {
+        DataSerializers.registerSerializer(DataSerializerResourceLocation.INSTANCE);
         MaterialRegistry.setup();
         MinecraftForge.EVENT_BUS.register(new ModEventHandler());
     }

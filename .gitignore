@@ -21,3 +21,9 @@ build
 classes
 eclipse
 run
+
+output/
+
+SBM-MidasZombie\.txt
+
+CompiledWith\.txt

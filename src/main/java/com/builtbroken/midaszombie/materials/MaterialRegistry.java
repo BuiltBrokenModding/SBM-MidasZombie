@@ -13,6 +13,7 @@ import static java.lang.Math.floor;
 public class MaterialRegistry
 {
     //Defaults
+    public static final ResourceLocation STONE_TYPE = new ResourceLocation("minecraft", "stone");
     public static final ResourceLocation LEATHER_TYPE = new ResourceLocation("minecraft", "leather");
     public static final ResourceLocation IRON_TYPE = new ResourceLocation("minecraft", "iron");
     public static final ResourceLocation CHAIN_TYPE = new ResourceLocation("minecraft", "chain");
@@ -41,6 +42,7 @@ public class MaterialRegistry
     public static void setup()
     {
         //init types
+        final MidasMaterial stone = getOrCreateMaterial(STONE_TYPE);
         final MidasMaterial leather = getOrCreateMaterial(LEATHER_TYPE);
         final MidasMaterial iron = getOrCreateMaterial(IRON_TYPE);
         final MidasMaterial chain = getOrCreateMaterial(CHAIN_TYPE);
@@ -54,6 +56,12 @@ public class MaterialRegistry
         armorMatToTypeMat.put(ItemArmor.ArmorMaterial.GOLD, GOLD_TYPE);
         armorMatToTypeMat.put(ItemArmor.ArmorMaterial.DIAMOND, DIAMOND_TYPE);
 
+        //Stone
+        stone.setDefault(TOOL_SHOVEL, Items.STONE_SHOVEL);
+        stone.setDefault(TOOL_SWORD, Items.STONE_SWORD);
+        stone.setDefault(TOOL_HOE, Items.STONE_HOE);
+        stone.setDefault(TOOL_PICKAXE, Items.STONE_PICKAXE);
+
         //Leather
         leather.setDefault(EntityEquipmentSlot.HEAD, Items.LEATHER_HELMET);
         leather.setDefault(EntityEquipmentSlot.CHEST, Items.LEATHER_CHESTPLATE);
@@ -65,7 +73,7 @@ public class MaterialRegistry
         iron.setDefault(EntityEquipmentSlot.CHEST, Items.IRON_CHESTPLATE);
         iron.setDefault(EntityEquipmentSlot.LEGS, Items.IRON_LEGGINGS);
         iron.setDefault(EntityEquipmentSlot.FEET, Items.IRON_BOOTS);
-        
+
         iron.setDefault(TOOL_SWORD, Items.IRON_SWORD);
         iron.setDefault(TOOL_SHOVEL, Items.IRON_SHOVEL);
         iron.setDefault(TOOL_AXE, Items.IRON_AXE);
