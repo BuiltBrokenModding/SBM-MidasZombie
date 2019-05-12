@@ -155,7 +155,10 @@ public class MaterialRegistry
                         {
                             final ResourceLocation materialName = armorMatToTypeMat.get(otherMaterial);
                             final MidasMaterial material = getMaterial(materialName);
-                            material.addSimpleConversion(item, material.getDefault(slot));
+                            if(material != null) //Not all materials are registered, enum can have new values added at runtime
+                            {
+                                material.addSimpleConversion(item, material.getDefault(slot));
+                            }
                         }
                     }
                 }
