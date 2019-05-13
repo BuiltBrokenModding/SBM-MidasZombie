@@ -55,7 +55,7 @@ public class ModEventHandler
     public static void applyEffectToSlot(EntityLivingBase player, EntityEquipmentSlot slot, ResourceLocation type)
     {
         final ItemStack currentItemStack = player.getItemStackFromSlot(slot);
-        if (!currentItemStack.isEmpty() && Math.random() < ConfigMain.CONVERSION_CHANCE)
+        if (!currentItemStack.isEmpty() && ConfigMain.isAllowed(currentItemStack.getItem()) && Math.random() < ConfigMain.CONVERSION_CHANCE)
         {
             //Get conversion
             final ItemStack newStack = MaterialRegistry.getConversion(currentItemStack, type);

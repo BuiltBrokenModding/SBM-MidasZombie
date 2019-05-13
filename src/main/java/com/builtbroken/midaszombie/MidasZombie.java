@@ -16,9 +16,11 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +32,26 @@ import static com.builtbroken.midaszombie.ConfigMain.SPAWN_WEIGHT;
 @Mod.EventBusSubscriber
 public class MidasZombie
 {
+
     public static final String MOD_ID = "midaszombie";
     public static final String NAME = "[SBM] Midas Zombie";
     public static final String VERSION = "1.0";
 
+    public static Logger logger;
+
+    @EventHandler
+    public static void preInit(FMLPreInitializationEvent event)
+    {
+        logger = event.getModLog();
+        DataSerializers.registerSerializer(DataSerializerResourceLocation.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(new ModEventHandler());
+    }
+
     @EventHandler
     public static void init(FMLInitializationEvent event)
     {
-        DataSerializers.registerSerializer(DataSerializerResourceLocation.INSTANCE);
+        ConfigMain.init();
         MaterialRegistry.setup();
-        MinecraftForge.EVENT_BUS.register(new ModEventHandler());
     }
 
     @SubscribeEvent

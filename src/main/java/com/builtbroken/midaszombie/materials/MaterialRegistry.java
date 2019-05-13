@@ -1,5 +1,6 @@
 package com.builtbroken.midaszombie.materials;
 
+import com.builtbroken.midaszombie.ConfigMain;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
@@ -117,21 +118,25 @@ public class MaterialRegistry
         //Collect items to sets of items
         for (Item item : ForgeRegistries.ITEMS.getValuesCollection())
         {
-            if (item instanceof ItemArmor)
+            //Only automate conversions if allowed, ignore if not
+            if(ConfigMain.isAllowed(item))
             {
-                addSimpleArmor(((ItemArmor) item).armorType, item);
-            }
-            else if (item instanceof ItemTool)
-            {
-                item.getToolClasses(new ItemStack(item)).forEach(toolClass -> addSimpleTool(toolClass, item));
-            }
-            else if(item instanceof ItemSword)
-            {
-                addSimpleTool(TOOL_SWORD, item);
-            }
-            else if(item instanceof ItemHoe)
-            {
-                addSimpleTool(TOOL_HOE, item);
+                if (item instanceof ItemArmor)
+                {
+                    addSimpleArmor(((ItemArmor) item).armorType, item);
+                }
+                else if (item instanceof ItemTool)
+                {
+                    item.getToolClasses(new ItemStack(item)).forEach(toolClass -> addSimpleTool(toolClass, item));
+                }
+                else if (item instanceof ItemSword)
+                {
+                    addSimpleTool(TOOL_SWORD, item);
+                }
+                else if (item instanceof ItemHoe)
+                {
+                    addSimpleTool(TOOL_HOE, item);
+                }
             }
         }
 
