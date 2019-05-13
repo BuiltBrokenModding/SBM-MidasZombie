@@ -52,24 +52,6 @@ public class ModEventHandler
         }
     }
 
-    //@SubscribeEvent
-    public static void onMobInteraction(PlayerInteractEvent.EntityInteract event)
-    {
-        if (event.getTarget() instanceof EntityZombie && event.getEntityPlayer().isCreative())
-        {
-            ItemStack heldItem = event.getItemStack();
-            if (heldItem.getItem() instanceof ItemArmor)
-            {
-                EntityEquipmentSlot armorType = ((ItemArmor) heldItem.getItem()).armorType;
-                event.getTarget().setItemStackToSlot(armorType, heldItem.copy());
-            }
-            else if (heldItem.getItem() instanceof ItemTool || heldItem.getItem() instanceof ItemSword)
-            {
-                event.getTarget().setItemStackToSlot(EntityEquipmentSlot.MAINHAND, heldItem.copy());
-            }
-        }
-    }
-
     public static void applyEffectToSlot(EntityLivingBase player, EntityEquipmentSlot slot, ResourceLocation type)
     {
         final ItemStack currentItemStack = player.getItemStackFromSlot(slot);
