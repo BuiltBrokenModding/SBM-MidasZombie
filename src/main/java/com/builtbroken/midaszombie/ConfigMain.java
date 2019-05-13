@@ -30,4 +30,14 @@ public class ConfigMain
     @Config.Comment("Amount of time in ticks (20 ticks a second) to allow zombies to keep midas effect after spawning")
     @Config.LangKey("config." + MidasZombie.MOD_ID + ":conversion.timer")
     public static int TIME_LIMIT = 2000;
+    @SubscribeEvent
+    public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
+    {
+        if (event.getModID().equals(MidasZombie.MOD_ID))
+        {
+            ConfigManager.sync(MidasZombie.MOD_ID, Config.Type.INSTANCE);
+            init();
+        }
+    }
+
 }
