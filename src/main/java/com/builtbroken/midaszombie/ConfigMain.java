@@ -32,8 +32,8 @@ public class ConfigMain
     public static int SPAWN_WEIGHT = 100;
 
     @Config.Name("conversion_limit")
-    @Config.RangeInt(min = 1)
-    @Config.Comment("Amount of tries a zombie gets before the midas effect is removed")
+    @Config.RangeInt(min = -1)
+    @Config.Comment("Amount of tries a zombie gets before the midas effect is removed. Set to -1 to disable transfer limits.")
     @Config.LangKey("config." + MidasZombie.MOD_ID + ":conversion.limit")
     public static int MAX_TRANSFERS = 5;
 

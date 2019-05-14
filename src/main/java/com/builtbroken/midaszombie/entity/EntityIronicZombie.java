@@ -1,5 +1,6 @@
 package com.builtbroken.midaszombie.entity;
 
+import com.builtbroken.midaszombie.ConfigMain;
 import com.builtbroken.midaszombie.materials.MaterialRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.IEntityLivingData;
@@ -97,12 +98,15 @@ public class EntityIronicZombie extends EntityZombie
 
     public void consumeTransfer(int count)
     {
-        final int transfersLeft = getTransfersRemaining() - count;
-        setTransfersRemaining(transfersLeft);
-
-        if (transfersLeft <= 0)
+        if(MAX_TRANSFERS != -1)
         {
-            clearActivePotions();
+            final int transfersLeft = getTransfersRemaining() - count;
+            setTransfersRemaining(transfersLeft);
+
+            if (transfersLeft <= 0)
+            {
+                clearActivePotions();
+            }
         }
     }
 
